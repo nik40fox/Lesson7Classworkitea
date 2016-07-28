@@ -1,5 +1,6 @@
 package tests;
 
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
@@ -7,8 +8,8 @@ import pages.LoginAndRegistrationPage;
 import pages.SearchResultsPage;
 
 public class AdvancedSearchTests {
-    final static String email = "soul@ukr.net";
-    final static String password = "fake";
+    final static String email = "mc_valkir@mail.ru";
+    final static String password = "tiramisu";
     final static String searchTerm = "HR";
 
     @Test
@@ -21,6 +22,11 @@ public class AdvancedSearchTests {
         searchResultsPage.performSearch(searchTerm);
         //Assert that 10 items returned in results list
         //Assert that each item from results list contains searchTerm
+
+
+        searchResultsPage.printEachTitleText();
+
+
     }
 
 }

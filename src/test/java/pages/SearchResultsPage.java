@@ -1,6 +1,8 @@
 package pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.os.Kernel32;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -17,24 +19,44 @@ public class SearchResultsPage extends BasePage {
 	@FindBy(id = "advs-keywords")
 	private WebElement keywordsField;
 
-	@FindBy(name = "submit")
+	@FindBy(css = ".submit-advs")
 	private WebElement searchButton;
 
 	@FindBy(css = ".div.description")
 	private List<WebElement> titleTextList;
 
 
+	@FindBy(css = ".suggested-search.bd>a")
+	private List<WebElement> showAllResults;
 
-	public List<String> getTitlesList(){
+
+
+
+
+
+
+	private List<WebElement> titleTextWebElementList;
+
+	private List<String> getTitlesList(){
+
 
 		List<String>  titlesTextList = null;
-		Iterator<WebElement> i = titleTextList.iterator();
+		Iterator<WebElement> i = titleTextWebElementList.iterator();
 		while (i.hasNext()){
-			WebElement titleTextElement = i.next();
-			String titleText = titleTextElement.getText();
+			WebElement titleTextWebElementList = i.next();
+			String titleText = titleTextWebElementList.getText();
 			titlesTextList.add(titleText);
 		}
 		return titlesTextList;
+	}
+
+	public void printEachTitleText(){
+		List<String> titleTextList = getTitlesList();
+
+			System.out.println(titleTextList);
+
+
+
 	}
 
 	public SearchResultsPage() {
@@ -43,8 +65,10 @@ public class SearchResultsPage extends BasePage {
 	}
 
 	public void performSearch (String searchTerm) {
+		implicitWaitForElement();
 		keywordsField.sendKeys(searchTerm);
-		searchButton.click();
+		keywordsField.sendKeys(Keys.RETURN);
+		//searchButton.click();
 	}
 
 
